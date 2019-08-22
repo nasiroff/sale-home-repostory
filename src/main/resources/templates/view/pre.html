@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PostHome.com - Preview</title>
+
+
+    <th:block th:replace="fragment/imports :: imports"/>
+    <!-- Fotorama -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lightSlider").lightSlider();
+            $('#imageGallery').lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                thumbItem: 9,
+                slideMargin: 0,
+                enableDrag: false,
+                currentPagerPosition: 'left',
+                onSliderLoad: function (el) {
+                    el.lightGallery({
+                        selector: '#imageGallery .lslide'
+                    });
+                }
+            });
+        });
+    </script>
+
+
+</head>
+
+<body>
+
+
+
+<th:block th:replace="fragment/header :: header"/>
+
+
+
+<div class="preIntroDiv">
+    <div class="container">
+        <h1 class="preIntro" >[[${post.getTitle()}]]</h1>
+        <div class="btn preIntroButton">[[${post.postType}]]</div>
+        <th:block sec:authorize="isAuthenticated()">
+            <i th:id="${post.idPost}" style="cursor: pointer" th:if="${#authentication.getPrincipal().getIdFavoritePost().contains(post.getIdPost())}" class="fa fa-star preStarIcon" onclick="deleteFromFavoritePost(this.id)"></i>
+            <i th:id="${post.idPost}" style="cursor: pointer" th:if="${!#authentication.getPrincipal().getIdFavoritePost().contains(post.getIdPost())}" class="fa fa-star-o preStarIcon" onclick="addToFavoritePost(this.id)"></i>
+        </th:block>
+        <div class="preAdress">
+            <p>$ [[${post.price}]]</p>
+            <p>$ [[${post.price / post.area}]]/sq.m</p>
+        </div>
+        <div class="clearFix"></div>
+        <p class="preIntroAdress">
+            <i class="fa fa-map-marker preIntroAdressIcon"></i> [[${post.city.cityName}]]</p>
+    </div>
+</div>
+
+
+<section class="pre">
+    <div class="container preDiv">
+        <div class="row">
+            <div class="col-md-12">
+                <ul id="imageGallery">
+                    <li th:each="postImage : ${post.postImages}" th:data-thumb="@{'/uploads/'+${postImage.imagePath}}" th:data-src="@{'/uploads/'+${postImage.imagePath}}">
+                        <img th:src="@{'/uploads/'+${postImage.imagePath}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-7 preLeftDiv">
+                    <div class="preleftBar">
+                        <ul class="preLeftBarUL">
+                            <li class="preLeftLi">
+                                <p>[[${post.area}]]</p>
+                                <p>sq.m</p>
+                            </li>
+                            <li class="preLeftLi">
+                                <p>[[${post.roomCount}]]</p>
+                                <p>rooms</p>
+                            </li>
+                            <li class="preLeftLi">
+                                <p>[[${post.homeType}]]</p>
+                                <p>type</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="form-group preTextAreaForm">
+                        <label for="desc">Desription</label>
+                        <textarea type="text" cols="30" rows="10" class="form-control preTextArea" id="desc" th:text="${post.desc}" disabled></textarea>
+                    </div>
+                </div>
+                <div class="col-md-5 preRightDiv">
+                    <div class="container-fluid preRightBar">
+                        <h3 class="preRightIntro">Contact Person</h3>
+                        <br>
+                        <br>
+                        <h5 class="preRightName">[[${post.user.lastName +" "+ post.user.firstName}]]</h5>
+                        <h5 class="preRightTel"><i class="fa fa-phone"> 470 123-456</i></h5>
+
+                        <form th:if="${post.emailAllowed}" th:action="@{'/send-email/'+${post.idPost}}" method="post">
+                            <div class="form-group">
+                                <label for="email">Your-email</label>
+                                <input type="text" name="email" class="form-control preTextinputs" id="email" placeholder="Your Name">
+                                </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Your Phone</label>
+                                <input type="text" name="phone" class="form-control preTextinputs" id="phone" placeholder="Your Phone">
+                                </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your message</label>
+                                <textarea type="text" name="message" cols="30" rows="10" class="form-control preTextAreaRight" id="message" placeholder="Your message"></textarea>
+                            </div>
+                            <div class="g-recaptcha"
+                                 th:data-sitekey="${@captchaSettings.getKey()}"></div>
+                            <div class="form-group">
+                                <input type="submit" class="form-control postSubmit" value="SEND">
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+<th:block th:replace="fragment/footer :: footer"/>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <keywords>PostHome.com - New Post</keywords>
+
+
+    <th:block th:replace="fragment/imports :: imports"/>
+
+</head>
+
+<body>
+
+
+    <th:block th:replace="fragment/header :: header"/>
+
+
+  
+
+    <div class="postIntroDiv">
+        <div class="container">
+            <h1 class="postIntro">Post your house</h1>
+            <span class="postAdress">
+                <p>home > sell</p>
+
+            </span>
+        </div>
+    </div>
+
+
+    <div th:if="${postValidationExceptionList != null}">
+        <div th:each="postValidationException : ${postValidationExceptionList}" th:text="${postValidationException.defaultMessage}"></div>
+    </div>
+
+
+    <form th:action="@{/user/add-post}" th:object="${post}" method="post" enctype="multipart/form-data">
+    <div class="container postDiv">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group postFormGroup">
+                    <label for="post-title">Title</label>
+                    <input th:value="${invalidPost != null && invalidPost.title != null} ? ${invalidPost.title} : '' " type="text" class="form-control postInput" name="title"  th:filed="*{title}" id="post-title" placeholder="Northwest apartments">
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="post-city">City</label>
+                    <select class="form-control postInput"  name="idCity" id="post-city">
+                        <option  selected disabled>Please select</option>
+                        <option th:each="city : ${cities}" th:value="${city.idCity}" th:text="${city.cityName}" >City name</option>
+                    </select>
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="post-type">Post type</label>
+                    <select class="form-control postInput" name="postType" th:filed="*{postType}" id="post-type">
+                        <option value="" selected disabled>Please select</option>
+                        <option value="sale">Sale</option>
+                        <option value="rent">Rent</option>
+                    </select>
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="post-property-type">Property type</label>
+                    <select class="form-control postInput" name="homeType" th:filed="*{homeType}" id="post-property-type">
+                        <option value="" selected disabled>Please select</option>
+                        <option value="flat">Flat</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="studio">Studio</option>
+                    </select>
+                </div>
+                <div  class="form-group postFormGroup">
+                    <label for="post-price">Price (monthly)</label>
+                    <button class="btn postButtonPrice">$</button>
+                    <input th:value="${invalidPost != null && invalidPost.price != null} ? ${invalidPost.price} : '' " type="number" class="form-control postInput postInputPrice" id="post-price" name="price" th:filed="*{price}" placeholder="300.000">
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="post-photos">Photos (up to 6)</label>
+                    <div class="input-group input-file ">
+                        <input type="file" multiple id="post-photos" name="image_path" class="form-control myChooseFile valid" accept="image/x-png,image/gif,image/jpeg">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group postFormGroup">
+                    <label for="post-rooms">Rooms</label>
+                    <select class="form-control postInput" name="roomCount" th:filed="*{roomCount}" id="post-rooms">
+                        <option value="" selected disabled>Please select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="post-area">Area (sq.m)</label>
+                    <input th:value="${invalidPost != null && invalidPost.area != null} ? ${invalidPost.area} : '' " type="text" class="form-control postInput" id="post-area" name="area" th:filed="*{area}" placeholder="540">
+                </div>
+                <div class="form-group postFormGroup">
+                    <label for="desc">Description (100 < <span id="lengthDesc">0</span> < 250)</label>
+                    <textarea th:text="${invalidPost != null && invalidPost.desc != null} ? ${invalidPost.desc} : '' " onkeypress="getLength()" type="text" cols="30" rows="10" class="form-control postTextArea postInput" id="desc" name="desc" th:filed="*{desc}" placeholder="Lorem ipsum dolor sit amet"></textarea>
+                </div>
+            </div>
+        </div>
+        <h1 class="PostRowIntro">Contacts</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group postFormGroup postCheckDiv">
+                    <label class="postCheck">
+                        <input id="checkPost" type="checkbox" name="emailAllowed" class="postCheckInput" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                   <label for="checkPost" class="postCheckLabel">Allow to contact me via e-mail</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group postFormGroup">
+                    <label for="user-phonenumber">Phone number</label>
+                    <input type="text" class="form-control postInput" name="phoneNumber" th:filed="*{phoneNumber}" id="user-phonenumber" placeholder="212-217-7999">
+                </div>
+                <div class="form-group postFormGroup">
+                        <button type="submit" class="form-control postSubmit" id="usr">POST</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    </form>
+
+
+    <script>
+        function getLength() {
+            var idText = document.getElementById("desc").value;
+            document.getElementById("lengthDesc").innerHTML = idText.length + 1;
+
+        }
+    </script>
+
+
+
+
+
+    <th:block th:replace="fragment/footer :: footer"/>
+
+
+
+</body>
+
+</html>

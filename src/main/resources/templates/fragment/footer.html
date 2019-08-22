@@ -1,0 +1,47 @@
+
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+    <div class="container">
+        <div class="col-md-3 push-left">
+            <ul class="footerUL">
+                <li class="footerOurC" th:text="#{lang.footer.our-contact}" style="text-transform: uppercase"> OUR CONTACTS</li>
+                <li class="footerCountry" th:text="#{lang.footer.our-country}"> Azerbaijan</li>
+                <li class="footerAdress">
+                    <i class="footerMapIcon fa fa-map-marker"></i>[[#{lang.footer.address}]]</li>
+                <li class="footerNumber">
+                    <i class="footerPhoneIcon fa fa-phone"></i> +994508406478</li>
+            </ul>
+        </div>
+        <div class="col-md-4 pull-right">
+            <ul class="footerUL">
+                <li class="footerOurC" th:text="#{lang.footer.our-newsletter}" >OUR NEWSLETTER</li>
+                <li class="footerInputLi">
+                    <input class="footerInput" type="text" th:placeholder="#{lang.input.placeholder.your-email}">
+                    <button class="footerButton" th:text="#{lang.footer.subscribe}">SUBSCRIBE</button>
+                </li>
+            </ul>
+            <ul class="footerUl footerUlSocial">
+                <li>
+                    <a href="#">
+                        <i class="footerSocialIcons fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="footerSocialIcons fa fa-youtube-play " aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="footerSocialIcons fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="footerSocialIcons fa fa-instagram" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h5 class="footerOutro">[[#{lang.footer.all-rights}]]</h5>
+</footer>

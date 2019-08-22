@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <keywords>PostHome.com - My favorite posts</keywords>
+
+
+    <th:block th:replace="fragment/imports :: imports"/>
+
+</head>
+
+<body>
+
+
+<th:block th:replace="fragment/header :: header"/>
+
+<div class="container mainDiv">
+
+    <section class="MainResult">
+        <div class="row mainResultRow">
+            <th:block th:each="post : ${posts}">
+                <div class="col-md-4 adDivSearchCol">
+
+                    <div class="container-fluid adDiv adDivSearch">
+                        <img class="adImg" th:src="@{'/uploads/'+${post.postImages.get(0).getImagePath()}}" alt="">
+                        <span class="sale">[[${#strings.capitalize(post.postType)}]]</span>
+                        <p class="city" th:inline="text">
+                            <i class="fa fa-map-marker"></i> [[${post.city.cityName}]]
+                        </p>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <i th:id="${post.idPost}" style="cursor: pointer" th:if="${#authentication.getPrincipal().getIdFavoritePost().contains(post.getIdPost())}" class="fa fa-star star" onclick="deleteFromFavoritePost(this.id)"></i>
+                            <i th:id="${post.idPost}" style="cursor: pointer" th:if="${!#authentication.getPrincipal().getIdFavoritePost().contains(post.getIdPost())}" class="fa fa-star-o star" onclick="addToFavoritePost(this.id)"></i>
+                        </th:block>
+                        <p class="price" th:inline="text">
+                            <i class="fa fa-dollar"></i> [[${post.price}]]</p>
+                        <span class="sqmP" th:inline="text">
+                                <th:block th:if="${post.postType.equals('sale')}">
+                                    <i class="fa fa-dollar"> [[${#numbers.formatDecimal(post.price / post.area, 0, 2, 'POINT')} + '/sq.m ']]</i>
+                                </th:block>
+                            </span>
+                        <p class="sqm" th:text="${post.area} + ' sq.m'"></p>
+                        <span class="rooms" th:text="${post.roomCount} + ' rooms'">
+                        </span>
+                        <ul class="adBottom">
+                            <li>
+                                <p class="name" th:inline="text">
+                                    <i class="fa fa-user"></i> [[${post.user.firstName}]] [[${post.user.lastName}]]</p>
+                            </li>
+                            <li>
+                                <p class="date">
+                                    <i class="fa fa-calendar"></i> [[${post.postAge()}]]</p>
+                            </li>
+                            <li>
+                                <a th:href="@{'/post/' + ${post.idPost}}" class="btn moreButton">MORE</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </th:block>
+        </div>
+    </section>
+
+
+</div>
+
+<th:block th:replace="fragment/footer :: footer"/>
+
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <keywords>PostHome.com - Registration</keywords>
+
+
+    <th:block th:replace="fragment/imports :: imports"/>
+
+</head>
+
+<body>
+
+
+<th:block th:replace="fragment/header :: header"/>
+
+<div class="registerIntroDiv">
+    <div class="container">
+        <h1 class="registerIntro">Register new users</h1>
+        <span class="registerAdress">
+                <p>home ></p>
+                <p>register</p>
+            </span>
+    </div>
+</div>
+
+<div class="container registerDiv">
+    <form th:action="@{/register}" th:object="${user}" class="form newUser" method="post" enctype="multipart/form-data">
+        <div class="form-group registerFormGroup">
+            <label for="usr">First Name*</label>
+            <input type="text" class="form-control registerInput" id="usr" name="firstName" th:filed="*{firstName}">
+        </div>
+        <div class="form-group registerFormGroup">
+            <label for="usr">Last name*:</label>
+            <input type="text" class="form-control registerInput" id="usr" name="lastName" th:field="*{lastName}">
+        </div>
+        <div class="form-group registerFormGroup">
+            <label for="usr">E-mail*</label>
+            <input type="email" class="form-control registerInput" id="usr" name="email" th:field="*{email}">
+        </div>
+        <div class="form-group registerFormGroup">
+            <label for="usr">Password:</label>
+            <input type="password" name="password" th:field="*{password}" class="form-control registerInput" id="usr">
+        </div>
+        <div class="form-group registerFormGroup">
+            <label for="usr">Re-type Password*</label>
+            <input type="password" name="password2" class="form-control registerInput" id="usr">
+        </div>
+        <div class="form-group registerFormGroup">
+            <button type="submit" class="form-control registerSubmit" id="usr">REGISTER</button>
+        </div>
+    </form>
+</div>
+</div>
+
+<th:block th:replace="fragment/footer :: footer"/>
+
+
+</body>
+
+</html>

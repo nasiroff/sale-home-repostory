@@ -1,0 +1,70 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="imports">
+
+<!-- Font Awesome !-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous">
+<!-- Font Source Sans Pro Google !-->
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<!-- OWl CSS-->
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<!-- OWl CSS-->
+<link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
+<!-- Style CSS !-->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<!--<link rel="stylesheet" th:href="@{/css/fotorama.css}">-->
+
+    <!-- Fotorama -->
+    <link th:href="@{/css/lightslider.css}" rel="stylesheet">
+
+<!-- Bootstrap CSS !-->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+
+
+    <!-- Jquerys !-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- Bootstrap JavaScript !-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/lightslider.js}"></script>
+
+    <!-- OWl JS !-->
+    <script th:src="@{/js/owl.carousel.js}"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            stagePadding: 50,
+            loop: true,
+            margin: 70,
+            nav: true,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 2
+                },
+                1200: {
+                    items: 3
+                }
+            }
+        });
+        $(".owl-prev").html('<i class="fa fa-chevron-left"></i>');
+        $(".owl-next").html('<i class="fa fa-chevron-right"></i>');
+    </script>
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
+    <script th:inline="javascript" th:if="${message!=null}">
+        /*<![CDATA[*/
+        $(function () {
+            alert(/*[[${message}]]*/ 'Message');
+        })
+        /*]]>*/
+    </script>
+</th:block>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <keywords>PostHome.com - Login</keywords>
+
+
+    <th:block th:replace="fragment/imports :: imports"/>
+
+</head>
+
+<body>
+
+
+
+    <th:block th:replace="fragment/header :: header"/>
+
+
+    <div class="registerIntroDiv">
+        <div class="container">
+            <h1 class="registerIntro">Log in</h1>
+            <span class="registerAdress">
+                <p>home ></p>
+                <p>login</p>
+            </span>
+        </div>
+    </div>
+
+
+
+    <div class="container registerDiv">
+        <form th:action="@{/login}" class="form newUser" method="post">
+        <div class="form-group modalFormGroup">
+                        <label for="usr">E-mail:</label>
+                        <input type="text" class="form-control modalInput" name="email" id="usr">
+                    </div>
+                    <div class="form-group modalFormGroup">
+                        <label for="usr">Password:</label>
+                        <input type="password" class="form-control modalInput" name="password" id="usr">
+                    </div>
+                    <div class="form-group modalFormGroup">
+                        <span th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}" th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+                        <input type="submit" class="form-control modalSubmit" id="usr" value="Log in">
+                    </div>
+                    <p class="modalA">or</p>
+                    <a class="modalA" th:href="@{/register}">Register new user</a>
+        </form>
+    </div>
+
+
+    <th:block th:replace="fragment/footer :: footer"/>
+
+
+
+</body>
+
+</html>
